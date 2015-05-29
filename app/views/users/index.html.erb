@@ -19,13 +19,18 @@
               <tr>
                 <% if current_user.id==user.friend_id %>
                   <td><%= User.find(user.friendx_id).name %></td>
-                <% else %>
-                  <td><%= User.find(user.friend_id).name %></td>
-                <% end %>
-                <td>
+                  <td>
                   <%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
                               "data-sid" => current_user.id, "data-rip" => user.friendx_id %>
-                </td>
+                  </td>
+                <% else %>
+                  <td><%= User.find(user.friend_id).name %></td>
+                  <td>
+                  <%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
+                              "data-sid" => current_user.id, "data-rip" => user.friendx_id %>
+                  </td>
+                <% end %>
+                
               </tr>
           <% end %>
 
