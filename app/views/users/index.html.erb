@@ -27,7 +27,7 @@
                   <td><%= User.find(user.friend_id).name %></td>
                   <td>
                   <%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
-                              "data-sid" => current_user.id, "data-rip" => user.friendx_id %>
+                              "data-sid" => current_user.id, "data-rip" => user.friend_id %>
                   </td>
                 <% end %>
                 
