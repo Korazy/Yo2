@@ -11,20 +11,20 @@
         <table class="table">
           <thead>
           <tr>
-            <th>#</th>
             <th>Username</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
-          <% @users.each_with_index do |user, index| %>
+          <% @users.each_with_index do |user| %>
+            <% if not (Friends.including(current_user.id, user.id).any? or Friends.includingx(current_user.id, user.id).any?) %>
               <tr>
-                <td><%= index +=1 %></td>
                 <td><%= user.name %></td>
-                <td>
-                  <%= link_to "Add Friend", :action => "addfriend", :cid=>current_user.id, :uid=> user.id%>
-                </td>
+	                <td>
+	                  <%= link_to "Add Friend", :action => "addfriend", :cid=>current_user.id, :uid=> user.id%>
+	                </td>
               </tr>
+            <% end %>
           <% end %>
 
           </tbody>
@@ -36,20 +36,18 @@
       <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">Current Friends</div>
-
+        <% if @friends.any? %>
         <!-- Table -->
         <table class="table">
           <thead>
           <tr>
-            <th>#</th>
             <th>Username</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
-          <% @friends.each_with_index do |user, index| %>
+          <% @friends.each_with_index do |user| %>
               <tr>
-                <td><%= index +=1 %></td>
                 <% if current_user.id==user.friend_id %>
                   <td><%= User.find(user.friendx_id).name %></td>
                 <% else %>
@@ -63,6 +61,9 @@
 
           </tbody>
         </table>
+        <% else %>
+          <p>You have no friends.</p>
+      <% end %>
       </div>
 
     </div>
