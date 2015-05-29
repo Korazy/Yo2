@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'friends/index'
+
   devise_for :users
 
   authenticated :user do
@@ -15,6 +17,9 @@ Rails.application.routes.draw do
   resources :conversations do
     resources :messages
   end
+
+  get "/friends/index/addfriend" => "friends#addfriend"
+  get "/friends/index/deletefriend" => "friends#deletefriend"
 
 
 end

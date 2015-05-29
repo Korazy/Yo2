@@ -1,28 +1,32 @@
 <div class="row">
   <!-- Not implemented on tutorial -->
   <div class="col-md-4">
-    <div style="height: 300px; overflow-y: auto;">
+    <div style="height: 300px; width: 1000px; overflow-y: auto;">
       <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Registered Users</div>
+        <div class="panel-heading">Friends</div>
 
         <!-- Table -->
         <table class="table">
           <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
+            <th>Username</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
-          <% @users.each_with_index do |user, index| %>
+          <% @friends.each_with_index do |user, index| %>
               <tr>
                 <td><%= index +=1 %></td>
-                <td><%= user.name %></td>
+                <% if current_user.id==user.friend_id %>
+                  <td><%= User.find(user.friendx_id).name %></td>
+                <% else %>
+                  <td><%= User.find(user.friend_id).name %></td>
+                <% end %>
                 <td>
                   <%= link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation",
-                              "data-sid" => current_user.id, "data-rip" => user.id %>
+                              "data-sid" => current_user.id, "data-rip" => user.friendx_id %>
                 </td>
               </tr>
           <% end %>
@@ -40,7 +44,6 @@
           <ul class="media-list">
             <% @conversations.each do |conversation| %>
                 <li class="media">
-                  <%= image_tag("http://placehold.it/50x50", class: "media-object pull-left") %>
                   <div class="media-body">
                     <%= link_to "", conversation_path(conversation), class: "conversation", "data-cid" => conversation.id %>
                         <h4 class="media-heading"><%= conversation_interlocutor(conversation).name %></h4>
