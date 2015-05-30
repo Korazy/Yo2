@@ -1,0 +1,29 @@
+<h1>Blog</h1>
+<div style="height: 300px; width: 1130px; overflow-y: auto;">
+    <!-- Table -->
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Username</th>
+        <th>Message</th>
+        <th>Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @allmessages.each_with_index do |message| %>
+          <tr>
+              <td><%= User.find(message.uid).name %></td>
+              <td><%= message.msg %></td>
+              <td><%= message.created_at%></td>
+            
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= form_tag({:controller=>"blog", :action=>"post"}, method: :get) do %>
+      <%= text_field_tag :user_message %>
+      <%= submit_tag 'Submit', umsg: nil %>
+    <% end %>
+  </div>
+
+</div>

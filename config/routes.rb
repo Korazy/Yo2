@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'blog/index'
+
   get 'friends/index'
 
   devise_for :users
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
   get "/friends/index/addfriend" => "friends#addfriend"
   get "/friends/index/deletefriend" => "friends#deletefriend"
   get "/friends/search"
+  get "/blog/index/post" => "blog#post"
 
 
 end
