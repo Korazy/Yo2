@@ -21,7 +21,11 @@
                   <tr>
                     <td><%= user.name %></td>
                       <td>
+                        <% if not (Friends.including(current_user.id, user.id).any? or Friends.includingx(current_user.id, user.id).any?) %>
                         <%= link_to "Add Friend", :action => "addfriend", :cid=>current_user.id, :uid=> user.id%>
+                        <% else %>
+                          Already a friend
+                          <% end %>
                       </td>
                   </tr>
               <% end %>
