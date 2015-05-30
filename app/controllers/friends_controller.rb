@@ -22,6 +22,10 @@ class FriendsController < ApplicationController
   	redirect_to('/friends/index')
   end
 
+  def search
+    @results = User.where(:name => params[:user_search_name])
+  end
+
   def destroy
   end
 end

@@ -2,76 +2,72 @@
 <div class="row">
   <!-- Not implemented on tutorial -->
   <div class="col-md-4">
-    <div style="height: 300px; width: 1000px; overflow-y: auto;">
-      <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Users</div>
-
-        <!-- Table -->
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Username</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @users.each_with_index do |user| %>
-            <% if not (Friends.including(current_user.id, user.id).any? or Friends.includingx(current_user.id, user.id).any?) %>
-              <tr>
-                <td><%= user.name %></td>
-	                <td>
-	                  <%= link_to "Add Friend", :action => "addfriend", :cid=>current_user.id, :uid=> user.id%>
-	                </td>
-              </tr>
+  <h1>Search for User</h1>
+    <%= form_tag({:controller=>"friends", :action=>"search"}, method: :get) do %>
+      <%= text_field_tag :user_search_name %>
+      <%= submit_tag 'Search', uname: nil %>
+    <% end %>  
+     <h1>All Users</h1>
+      <div style="height: 200px; width: 1100px; overflow-y: auto;">
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <!-- Table -->
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Username</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @users.each_with_index do |user| %>
+              <% if not (Friends.including(current_user.id, user.id).any? or Friends.includingx(current_user.id, user.id).any?) %>
+                <tr>
+                  <td><%= user.name %></td>
+  	                <td>
+  	                  <%= link_to "Add Friend", :action => "addfriend", :cid=>current_user.id, :uid=> user.id%>
+  	                </td>
+                </tr>
+              <% end %>
             <% end %>
-          <% end %>
-
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
-
-    </div>
-    <div style="height: 300px; width: 1000px; overflow-y: auto;">
-      <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Current Friends</div>
-        <% if @friends.any? %>
-        <!-- Table -->
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Username</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @friends.each_with_index do |user| %>
-              <tr>
-                <% if current_user.id==user.friend_id %>
-                  <td><%= User.find(user.friendx_id).name %></td>
-                <% else %>
-                  <td><%= User.find(user.friend_id).name %></td>
-                <% end %>
-                <td>
-                  <%= link_to "Delete Friend", {:action => "deletefriend", :cid=>user.friend_id, :uid=> user.friendx_id}%>
-                </td>
-              </tr>
-          <% end %>
-
-          </tbody>
-        </table>
-        <% else %>
-          <p>You have no friends.</p>
-      <% end %>
+      <h1>Friends</h1>
+      <div style="height: 300px; width: 1100px; overflow-y: auto;">
+        <div class="panel panel-default">
+          <!-- Default panel contents -->
+          <% if @friends.any? %>
+          <!-- Table -->
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Username</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @friends.each_with_index do |user| %>
+                <tr>
+                  <% if current_user.id==user.friend_id %>
+                    <td><%= User.find(user.friendx_id).name %></td>
+                  <% else %>
+                    <td><%= User.find(user.friend_id).name %></td>
+                  <% end %>
+                  <td>
+                    <%= link_to "Delete Friend", {:action => "deletefriend", :cid=>user.friend_id, :uid=> user.friendx_id}%>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+          <% else %>
+            <p>You have no friends.</p>
+        <% end %>
       </div>
-
     </div>
-
   </div>
-
   <div class="col-md-4">
-
   </div>
-
 </div>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   get "/friends/index/addfriend" => "friends#addfriend"
   get "/friends/index/deletefriend" => "friends#deletefriend"
+  get "/friends/search"
 
 
 end

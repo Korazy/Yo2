@@ -1,0 +1,34 @@
+<%= javascript_include_tag :application%>
+  <h1>Search for User</h1>
+    <%= form_tag({:controller=>"friends", :action=>"search"}, method: :get) do %>
+      <%= text_field_tag :user_search_name %>
+      <%= submit_tag 'Search', uname: nil %>
+    <% end %>
+  <% if @results %>
+        <div style="height: 300px; width: 1100px; overflow-y: auto;">
+          <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <!-- Table -->
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Username</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @results.each_with_index do |user| %>
+                  <tr>
+                    <td><%= user.name %></td>
+                      <td>
+                        <%= link_to "Add Friend", :action => "addfriend", :cid=>current_user.id, :uid=> user.id%>
+                      </td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    <% else %>
+       <h2>No results found</h2>
+     <% end %>
