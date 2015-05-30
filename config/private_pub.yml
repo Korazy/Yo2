@@ -1,9 +1,9 @@
 development:
   server: "http://yofaye.herokuapp.com/faye"
-  secret_token: "secret"
+  secret_token: "skill123"
 test:
   server: "http://yofaye.herokuapp.com/faye"
-  secret_token: "secret"
+  secret_token: "skill123"
 production:
   server: "http://yofaye.herokuapp.com/faye"
   secret_token: "skill123"
